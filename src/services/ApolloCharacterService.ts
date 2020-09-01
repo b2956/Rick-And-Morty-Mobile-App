@@ -2,10 +2,10 @@ import { gql } from '@apollo/client';
 import ApolloClientService from './ApolloEpisodeService';
 
 const ApolloCharacterService = {
-    getCharacters: (page: number) => {
+    getCharacters: () => {
         return gql`
-            query {
-                    characters(page: ${page}) {
+            query FetchCharacters($page: Int) {
+                    characters(page: $page) {
                         info {
                             count
                             pages

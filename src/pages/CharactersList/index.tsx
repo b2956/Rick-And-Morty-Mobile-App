@@ -4,28 +4,19 @@ import styled from 'styled-components/native';
 import { useQuery } from '@apollo/client';
 
 import CharacterCard, { ICharacterProps } from '../../components/CharacterCard';
+import SearchBar from '../../components/SearchBar';
+
 import ApolloCharacterService  from '../../services/ApolloCharacterService';
 
 const Wrapper = styled.View`
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    background-color: #323541;
     justify-content: center;
     align-items: center;
 `;
 
-const ListWrapper = styled.ScrollView`
-    width: 100%;
-    flex: 1;
-    background-color: #999;
-`
-
 const CharactersList = () => {
-    const [characterList, setCharacterList] = useState([]);
-
-    const { loading, error, data } = useQuery(ApolloCharacterService.getCharacters(1));
-
-    if(data) console.log(data.characters.results); 
 
     const renderCharacterCard = ({ item, index }: { item: ICharacterProps, index: number }) => {
         return (
@@ -45,23 +36,59 @@ const CharactersList = () => {
         )
     }
 
-    return (
-        <Wrapper>
-            { loading && <ActivityIndicator color="baby-blue" size='large' /> }
-            { data && 
+    function useFetchCharacters() {
+        const { loading, error, data, fetchMore } = useQuery(ApolloCharacterService.getCharacters(), {
+            variables: {
+                page: 1
+            }
+        });
+
+        if (loading) return <ActivityIndicator color="baby-blue" size='large' />;
+
+        // if(data) console.log(data.characters.result);
+
+        if (data) return  (
+            <React.Fragment>
+                <SearchBar/>
                 <FlatList
-                    style={{
-                        width: '100%',
-                        backgroundColor: '#323541',
-                    }}
+                    style={{ width: '100%' }}
                     contentContainerStyle={{
                         justifyContent: 'flex-start',
-                        paddingVertical: 10
+                        paddingVertical: 10,
+                        backgroundColor: '#323541'
                     }}
                     data={data.characters.results}
                     renderItem={renderCharacterCard}
+                    onEndReached={() => {
+                        console.log(data.characters.info.next);
+                        fetchMore({
+                            variables: {
+                                page: data.characters.info.next
+                            },
+                            updateQuery: (prev: any, { fetchMoreResult }) => {
+                                if (!fetchMoreResult) return prev;
+
+                                const newData = {
+                                    characters: {
+                                        info: fetchMoreResult.characters.info,
+                                        results: [
+                                            ...prev.characters.results, ...fetchMoreResult.characters.results
+                                        ]
+                                    }
+                                }
+                                return newData;
+                            }
+                        });
+                    }
+                }
                 />
-            }
+            </React.Fragment>
+        )
+    }
+
+    return (
+        <Wrapper>
+            {useFetchCharacters()}
         </Wrapper>    
     )
 }
