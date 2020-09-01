@@ -45,8 +45,6 @@ const CharactersList = () => {
         )
     }
 
-    // const renderCharacterCardCallback = useCallback(({ item, index }: { item: ICharacterProps, index: number }) => renderCharacterCard({ item, index }));
-
     return (
         <Wrapper>
             { loading && <ActivityIndicator color="baby-blue" size='large' /> }
@@ -63,27 +61,6 @@ const CharactersList = () => {
                     data={data.characters.results}
                     renderItem={renderCharacterCard}
                 />
-
-                // <ListWrapper>
-                // {
-                //     data.characters.results.map((item, index) => {
-                //         <CharacterCard
-                //             episode={item.episode}  
-                //             gender={item.gender}
-                //             id={item.id}
-                //             image={item.image}
-                //             location={item.location}
-                //             name={item.name}
-                //             origin={item.origin}
-                //             species={item.species}
-                //             status={item.status}
-                //             type={item.type}
-                //             key={index}
-                //         />
-                //     })
-                // }
-                // </ListWrapper>
-
             }
         </Wrapper>    
     )

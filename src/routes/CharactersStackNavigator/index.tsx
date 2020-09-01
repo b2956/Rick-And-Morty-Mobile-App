@@ -8,7 +8,7 @@ const StackNavigator = createStackNavigator();
 const CharactersStackNavigator = () => {
 
     return (
-        <StackNavigator.Navigator initialRouteName='CharactersList' headerMode='screen'>
+        <StackNavigator.Navigator initialRouteName='CharactersList' headerMode='none'>
             <StackNavigator.Screen name='CharactersList' component={CharactersList} />
         </StackNavigator.Navigator>
     )

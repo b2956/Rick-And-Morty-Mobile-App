@@ -30,11 +30,11 @@ const ApolloCharacterService = {
                             dimension
                         }
                         image
-                        # episode {
-                        #     id
-                        #     name
-                        #     episode
-                        # }
+                        episode {
+                            id
+                            name
+                            episode
+                        }
                     }
                 }
             }

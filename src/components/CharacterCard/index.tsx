@@ -31,7 +31,7 @@ interface IEpisode {
 
 const Wrapper = styled.View`
     width: 95%;
-    height: 150px;
+    height: 170px;
     background-color: #606268;
     margin-bottom: 10px;
     align-self: center;
@@ -70,6 +70,12 @@ const GreyText = styled.Text`
     font-weight: 400;
 `;
 
+const WhiteText = styled.Text`
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 13px;
+`
+
 const CharacterCard = ({ episode, gender, id, image, location, name, origin, species, status, type  }: ICharacterProps) => {
     return (
         <Wrapper>
@@ -80,6 +86,9 @@ const CharacterCard = ({ episode, gender, id, image, location, name, origin, spe
                 <CharacterName>{name}</CharacterName>
                 <CharacterStatus race={species} status={status}/>
                 <GreyText>Last known location:</GreyText>
+                <WhiteText>{location.name}</WhiteText>
+                <GreyText>First seen in:</GreyText>
+                <WhiteText>{episode[0].name}</WhiteText>
             </CharacterInfoWrapper>
         </Wrapper>
     )
