@@ -1,16 +1,17 @@
-import React, {useState, useEffect} from 'react';
-import { FlatList , ActivityIndicator } from 'react-native';
+import React, {useState} from 'react';
+import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import { useQuery } from '@apollo/client';
 
 import CharacterCard, { ICharacterProps } from '../../components/CharacterCard';
 import SearchBar from '../../components/SearchBar';
+import Loader from '../../components/Loader';
 
 import ApolloCharacterService  from '../../services/ApolloCharacterService';
 
 interface IFilterOptions {
     searchValue: string,
-    searchOption: string,
+    searchOption: 'name' | 'status' | 'species' | 'type' | 'gender',
     isSearching: boolean
 }
 
@@ -28,7 +29,6 @@ const CharactersList = () => {
         searchOption: 'name',
         searchValue: 'morty'
     } as IFilterOptions);
-    const [isFiltered, setIsFiltered] = useState(false);
 
     const changeInputHandler = (inputValue: string) => {
         const isSearching = inputValue === '' ? false : true;
@@ -62,8 +62,6 @@ const CharactersList = () => {
         )
     }
 
-    const Loader = <ActivityIndicator color="baby-blue" size='large' style={{flex: 1, justifyContent: 'center' }}/>;
-
     function useFetchCharacters() {
         const { loading, error, data, fetchMore } = useQuery(ApolloCharacterService.getCharacters(), {
             variables: {
@@ -71,9 +69,7 @@ const CharactersList = () => {
             }
         });
 
-        if (loading) return Loader;
-
-        // if(data) console.log(data.characters.result);
+        if (loading) return <Loader/>;
 
         if (data) return  (
             <React.Fragment>
@@ -87,7 +83,8 @@ const CharactersList = () => {
                     data={data.characters.results}
                     renderItem={renderCharacterCard}
                     onEndReached={() => {
-
+                        if(!data.characters.info.next) return;
+                        
                         fetchMore({
                             variables: {
                                 page: data.characters.info.next
@@ -114,24 +111,6 @@ const CharactersList = () => {
     }
 
     function useFetchFilteredCharacters () {
-        const setFilterVariable = () => {
-            switch(filterOptions.searchValue) {
-                case 'name':
-                    return {name: filterOptions.searchValue}
-                case 'status':
-                    return {status: filterOptions.searchValue}
-                case 'species':
-                    return {species: filterOptions.searchValue}
-                case 'type':
-                    return {type: filterOptions.searchValue}
-                case 'gender':
-                    return {gender: filterOptions.searchValue}
-                default:
-                    return {name: filterOptions.searchValue}
-            }
-        }
-
-        const filter = setFilterVariable();
 
         const { loading, error, data, fetchMore } = useQuery(ApolloCharacterService.getFilteredCharacters(filterOptions.searchOption), {
             variables: {
@@ -140,9 +119,7 @@ const CharactersList = () => {
             }
         });
 
-        if (loading) return Loader;
-
-        // if(error) console.log(error);
+        if (loading) return <Loader/>;
 
         if(data) console.log(data.characters.result);
 
@@ -158,7 +135,8 @@ const CharactersList = () => {
                     data={data.characters.results}
                     renderItem={renderCharacterCard}
                     onEndReached={() => {
-                        console.log(data.characters.info.next);
+                        if(!data.characters.info.next) return;
+
                         fetchMore({
                             variables: {
                                 page: data.characters.info.next

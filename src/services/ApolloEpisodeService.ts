@@ -1,5 +1,16 @@
 import { gql } from '@apollo/client';
 
+const filterOptions = (filter: string) => {
+    switch(filter) {
+        case 'name':
+            return 'name';
+        case 'episode':
+            return 'episode';
+        default:
+            return 'name';
+    }
+} 
+
 const ApolloEpisodeService = {
     getEpisodes: () => {
         return gql`
@@ -21,26 +32,31 @@ const ApolloEpisodeService = {
             }
         `
     },
+    getFilteredEpisodes: (filter: string) => {
+        const filterType = filterOptions(filter);
 
-    // query FetchEpisodes($page: Int) {
-    //     episodes(page: $page, filter: {
-    //     name: 
-    //     episode: "S01E01"
-    //   }) {
-    //     info {
-    //       count
-    //       pages
-    //       next
-    //       prev
-    //     }
-    //     results {
-    //       id
-    //       name
-    //       air_date
-    //       episode
-    //     }
-    //   }
-    // }
+        return gql`
+            query FetchFilteredEpisodes($page: Int, $filter: String) {
+                episodes(page: $page, filter: {
+                  ${filterType}: $filter
+                })
+                {
+                    info {
+                        count
+                        pages
+                        next
+                        prev
+                    }
+                    results {
+                        id
+                        name
+                        air_date
+                        episode
+                    }
+                }
+            }
+        `
+    }
 }
 
 export default ApolloEpisodeService;
