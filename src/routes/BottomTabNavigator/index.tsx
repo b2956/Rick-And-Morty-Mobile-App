@@ -5,17 +5,10 @@ import styled from 'styled-components/native';
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 
 import CharactersStackNavigator from '../CharactersStackNavigator';
+import EpisodesStackNavigator from '../EpisodesStackNavigator';
 
 const Icon = createIconSetFromIcoMoon(require('../../config/selection.json'));
 const TabNavigator = createBottomTabNavigator();
-
-const EpisodesScreen: React.FC = () => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Episodes</Text>
-    </View>
-  );
-};
 
 const BottomTabNavigator: React.FC = () => {
   return (
@@ -53,18 +46,18 @@ const BottomTabNavigator: React.FC = () => {
         component={CharactersStackNavigator}
         options={{
           tabBarTestID: 'characterScreenIcon',
-          title: 'Personagens',
-          tabBarLabel: 'Personagens',
+          title: 'Characters',
+          tabBarLabel: 'Characters',
           tabBarIcon: () => < Icon  name='icons8-morty-smith' size={30} />
         }}
       />
       <TabNavigator.Screen
         name="Episodes"
-        component={EpisodesScreen}
+        component={EpisodesStackNavigator}
         options={{
           tabBarTestID: 'episodesScreenIcon',
-          title: 'Episódios',
-          tabBarLabel: 'Episódios',
+          title: 'Episodes',
+          tabBarLabel: 'Episodes',
           tabBarIcon: () => < Icon  name='icons8-rick-sanchez' size={30} />
         }}
       />

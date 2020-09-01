@@ -3,7 +3,6 @@ import styled from 'styled-components/native';
 
 import CharacterStatus from './CharacterStatus';
 
-
 export interface ICharacterProps {
     id: string
     name: string
@@ -74,7 +73,7 @@ const WhiteText = styled.Text`
     color: #fff;
     margin-bottom: 10px;
     font-size: 13px;
-`
+`;
 
 const CharacterCard = ({ episode, gender, id, image, location, name, origin, species, status, type  }: ICharacterProps) => {
     return (
