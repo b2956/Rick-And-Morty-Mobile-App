@@ -47,18 +47,18 @@ const EpisodesList = () => {
     };
 
     const changeResultsFilter = (filterValue: searchOptions ) => {
-
         setFilterOptions(prevState => {
             return {
                 ...prevState,
                 searchOption: filterValue
             }
-        })
+        });
     };
 
     const renderEpisodeCard = ({ item, index }: { item: IEpisodeProps, index: number }) => {
         return (
-            <EpisodeCard 
+            <EpisodeCard
+                characters={item.characters}
                 episode={item.episode}
                 air_date={item.air_date}
                 id={item.id}

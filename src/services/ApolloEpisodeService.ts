@@ -27,6 +27,9 @@ const ApolloEpisodeService = {
                         name
                         air_date
                         episode
+                        characters {
+                            name
+                        }
                     }
                 }
             }
@@ -52,6 +55,9 @@ const ApolloEpisodeService = {
                         name
                         air_date
                         episode
+                        characters {
+                            name
+                        }
                     }
                 }
             }

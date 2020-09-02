@@ -6,11 +6,17 @@ export interface IEpisodeProps {
     name: string
     air_date: string
     episode: string
+    characters: ICharacter[]
+}
+
+interface ICharacter {
+    __typename: string,
+    name: string
 }
 
 const Wrapper = styled.View`
     width: 95%;
-    height: 100px;
+    height: 200px;
     background-color: #606268;
     margin-bottom: 10px;
     align-self: center;
@@ -54,7 +60,14 @@ const WhiteText = styled.Text`
     font-size: 13px;
 `;
 
-const EpisodeCard = ({id, name, air_date, episode}: IEpisodeProps) => {
+const EpisodeCard = ({id, name, air_date, episode, characters}: IEpisodeProps) => {
+    const charactersList = characters.reduce((reducer, item, index) => {
+        if(index === 0) return item.name;
+        if(reducer.length >= 150 && index === characters.length - 1) return `${reducer} ...`;
+        if(reducer.length >= 150) return `${reducer}`;
+        return `${reducer} | ${item.name}`;
+    }, '');
+
     return (
         <Wrapper>
             <Title>{name}</Title>
@@ -68,6 +81,8 @@ const EpisodeCard = ({id, name, air_date, episode}: IEpisodeProps) => {
                     <WhiteText>{episode}</WhiteText>
                 </EpisodeInfoBlock>
             </EpisodeInfoWrapper>
+            <GreyText>Characters present:</GreyText>
+            <WhiteText>{charactersList}</WhiteText>
         </Wrapper>
     )
 };

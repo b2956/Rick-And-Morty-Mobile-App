@@ -13,7 +13,7 @@ export interface ICharacterProps {
     origin: ILocation
     location: ILocation
     image: string
-    episode: IEpisode[]
+    episodes: IEpisode[]
 }
 
 interface ILocation {
@@ -30,7 +30,7 @@ interface IEpisode {
 
 const Wrapper = styled.View`
     width: 95%;
-    height: 170px;
+    height: 230px;
     background-color: #606268;
     margin-bottom: 10px;
     align-self: center;
@@ -42,7 +42,7 @@ const Wrapper = styled.View`
 const CharacterImgWrapper = styled.View`
     width: 40%;
     height: 100%;
-`
+`;
 
 const CharacterImg = styled.Image`
     width: 100%;
@@ -75,7 +75,14 @@ const WhiteText = styled.Text`
     font-size: 13px;
 `;
 
-const CharacterCard = ({ episode, gender, id, image, location, name, origin, species, status, type  }: ICharacterProps) => {
+const CharacterCard = ({ episodes, gender, id, image, location, name, origin, species, status, type  }: ICharacterProps) => {
+    const episodesList = episodes.reduce((reducer, item, index) => {
+        if(index === 0) return item.episode;
+        if(reducer.length >= 50 && index === episodes.length - 1) return `${reducer} ...`;
+        if(reducer.length >= 50) return `${reducer}`;
+        return `${reducer} | ${item.episode}`;
+    }, '');
+
     return (
         <Wrapper>
             <CharacterImgWrapper>
@@ -87,7 +94,9 @@ const CharacterCard = ({ episode, gender, id, image, location, name, origin, spe
                 <GreyText>Last known location:</GreyText>
                 <WhiteText>{location.name}</WhiteText>
                 <GreyText>First seen in:</GreyText>
-                <WhiteText>{episode[0].name}</WhiteText>
+                <WhiteText>{episodes[0].name}</WhiteText>
+                <GreyText>Present in Episodes:</GreyText>
+                <WhiteText>{episodesList}</WhiteText>
             </CharacterInfoWrapper>
         </Wrapper>
     )

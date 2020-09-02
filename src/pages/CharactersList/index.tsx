@@ -59,7 +59,7 @@ const CharactersList = () => {
     const renderCharacterCard = ({ item, index }: { item: ICharacterProps, index: number }) => {
         return (
             <CharacterCard 
-                episode={item.episode}  
+                episodes={item.episode}  
                 gender={item.gender}
                 id={item.id}
                 image={item.image}
