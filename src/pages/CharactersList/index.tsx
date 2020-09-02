@@ -9,9 +9,11 @@ import Loader from '../../components/Loader';
 
 import ApolloCharacterService  from '../../services/ApolloCharacterService';
 
-interface IFilterOptions {
+type searchOptions = 'name' | 'status' | 'species' | 'type' | 'gender';
+
+export interface IFilterOptions {
     searchValue: string,
-    searchOption: 'name' | 'status' | 'species' | 'type' | 'gender',
+    searchOption: searchOptions,
     isSearching: boolean
 }
 
@@ -25,9 +27,9 @@ const Wrapper = styled.View`
 
 const CharactersList = () => {
     const [filterOptions, setFilterOptions] = useState({
-        isSearching: true,
+        isSearching: false,
         searchOption: 'name',
-        searchValue: 'morty'
+        searchValue: ''
     } as IFilterOptions);
 
     const changeInputHandler = (inputValue: string) => {
@@ -42,7 +44,17 @@ const CharactersList = () => {
                 isSearching
             }
         })
-    }
+    };
+
+    const changeResultsFilter = (filterValue: searchOptions ) => {
+
+        setFilterOptions(prevState => {
+            return {
+                ...prevState,
+                searchOption: filterValue
+            }
+        })
+    };
 
     const renderCharacterCard = ({ item, index }: { item: ICharacterProps, index: number }) => {
         return (
@@ -145,6 +157,7 @@ const CharactersList = () => {
                                 if (!fetchMoreResult) return prev;
 
                                 const newData = {
+                                    ...prev,
                                     characters: {
                                         info: fetchMoreResult.characters.info,
                                         results: [
@@ -175,6 +188,7 @@ const CharactersList = () => {
                 ]}
                 changeInputHandler={changeInputHandler}
                 inputValue={filterOptions.searchValue}
+                changeResultsFilter={changeResultsFilter}
             />
             { !filterOptions.isSearching &&
                 useFetchCharacters()

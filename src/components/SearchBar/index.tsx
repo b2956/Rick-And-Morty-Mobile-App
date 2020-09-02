@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Picker } from '@react-native-community/picker';
 
@@ -8,7 +8,7 @@ interface ISearchBarProps {
     placeholder: string,
     options: string[],
     changeInputHandler: Function,
-    filterResults: Function
+    changeResultsFilter: Function
 }
 
 const Wrapper = styled.View`
@@ -23,7 +23,8 @@ const Wrapper = styled.View`
 `;
 
 const Input = styled.TextInput`
-    width: 50%;
+    /* flex: 1; */
+    width: 60%;
     height: 40px;
     border-radius: 10px;
     background-color: rgb(158, 158, 158);
@@ -33,23 +34,17 @@ const Input = styled.TextInput`
     border: 1px solid #fff;
 `;
 
-const SearchButton = styled.TouchableOpacity`
+const PickerWrap = styled.View`
     height: 40px;
     flex: 1;
-    background-color: #fff;
+    background-color: rgb(158, 158, 158);
     border-radius: 10px;
-    justify-content: center;
-    align-items: center;
+    border: 1px solid #fff;
+    margin-left: 5px;
 `;
 
-const ButtonText = styled.Text`
-    font-size: 15px;
-    font-weight: 700;
-    color: #323541;
-`;
-
-
-const SearchBar = ({inputValue, placeholder, options, changeInputHandler, filterResults}: ISearchBarProps) => {
+const SearchBar = ({inputValue, placeholder, options, changeInputHandler, changeResultsFilter}: ISearchBarProps) => {
+    const [pickerOption, setPickerOption] = useState(1);
 
     const changeInput = (inputValue: string) => {
         console.log(inputValue);
@@ -64,17 +59,23 @@ const SearchBar = ({inputValue, placeholder, options, changeInputHandler, filter
                 defaultValue={inputValue} 
                 onChangeText={(text: string) => changeInput(text)} 
             />
-            {/* <TextInput placeholder={placeholder} placeholderTextColor="#fff"  defaultValue={inputValue} onChangeText={(text: string) => inputChangeHandler(text) }  style={styles.textInput} /> */}
-            <Picker
-                selectedValue={options[0]}
-                style={styles.picker}
-                itemStyle={styles.item}
-            >
-                {options.map((option, index) => <Picker.Item label={option} value={option} key={index} testID={`pickerItem${index}`} /> )}
+            <PickerWrap>
+                <Picker
+                    selectedValue={options[pickerOption]}
+                    style={{
+                        height: 40,
+                        flex: 1,
+                        color: '#fff'
+                    }}
+                    onValueChange={(itemValue, index) => {
+                        changeResultsFilter(itemValue)
+                        setPickerOption(index);
+                    }}
+                    
+                >
+                    {options.map((option, index) => <Picker.Item label={option} value={option} key={index} testID={`pickerItem${index}`} /> )}
                 </Picker>
-            <SearchButton onPress={filterResults} >
-                <ButtonText>Search</ButtonText>
-            </SearchButton>
+            </PickerWrap>
         </Wrapper>
     )
 };
@@ -82,10 +83,13 @@ const SearchBar = ({inputValue, placeholder, options, changeInputHandler, filter
 const styles = StyleSheet.create({
     picker: {
         height: 40, 
-        width: 100,
-        backgroundColor: '#fff',
+        width: 150,
+        backgroundColor: 'rgb(158, 158, 158)',
+        color: '#fff',
         marginHorizontal: 5,
-        borderRadius: 20
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#000'
     },
     item: {
         width: '100%',

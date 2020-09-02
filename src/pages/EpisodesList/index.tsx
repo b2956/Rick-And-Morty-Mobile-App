@@ -9,9 +9,11 @@ import Loader from '../../components/Loader';
 
 import ApolloEpisodeService  from '../../services/ApolloEpisodeService';
 
-interface IFilterOptions {
+type searchOptions = 'name' | 'episode';
+
+export interface IFilterOptions {
     searchValue: string,
-    searchOption: 'name' | 'episode',
+    searchOption: searchOptions,
     isSearching: boolean
 }
 
@@ -27,8 +29,32 @@ const EpisodesList = () => {
     const [filterOptions, setFilterOptions] = useState({
         isSearching: true,
         searchOption: 'name',
-        searchValue: 'pilot'
+        searchValue: ''
     } as IFilterOptions);
+
+    const changeInputHandler = (inputValue: string) => {
+        const isSearching = inputValue === '' ? false : true;
+
+        console.log(inputValue);
+
+        setFilterOptions(prevState => {
+            return {
+                ...prevState,
+                searchValue: inputValue,
+                isSearching
+            }
+        })
+    };
+
+    const changeResultsFilter = (filterValue: searchOptions ) => {
+
+        setFilterOptions(prevState => {
+            return {
+                ...prevState,
+                searchOption: filterValue
+            }
+        })
+    };
 
     const renderEpisodeCard = ({ item, index }: { item: IEpisodeProps, index: number }) => {
         return (
@@ -126,6 +152,7 @@ const EpisodesList = () => {
                                 if (!fetchMoreResult) return prev;
 
                                 const newData = {
+                                    ...prev,
                                     episodes: {
                                         info: fetchMoreResult.episodes.info,
                                         results: [
@@ -151,6 +178,9 @@ const EpisodesList = () => {
                     'name',
                     'episode'   
                 ]}
+                changeInputHandler={changeInputHandler}
+                inputValue={filterOptions.searchValue}
+                changeResultsFilter={changeResultsFilter}
             />
             { !filterOptions.isSearching &&
                 useFetchEpisodes()
