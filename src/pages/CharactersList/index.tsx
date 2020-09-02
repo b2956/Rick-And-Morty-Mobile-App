@@ -60,7 +60,7 @@ const CharactersList = () => {
                 key={index}
             />
         )
-    }
+    };
 
     function useFetchCharacters() {
         const { loading, error, data, fetchMore } = useQuery(ApolloCharacterService.getCharacters(), {

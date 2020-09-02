@@ -48,7 +48,7 @@ const BottomTabNavigator: React.FC = () => {
           tabBarTestID: 'characterScreenIcon',
           title: 'Characters',
           tabBarLabel: 'Characters',
-          tabBarIcon: () => < Icon  name='icons8-morty-smith' size={30} />
+          tabBarIcon: () => < Icon  name='morty_88916' size={30} />
         }}
       />
       <TabNavigator.Screen
@@ -58,7 +58,7 @@ const BottomTabNavigator: React.FC = () => {
           tabBarTestID: 'episodesScreenIcon',
           title: 'Episodes',
           tabBarLabel: 'Episodes',
-          tabBarIcon: () => < Icon  name='icons8-rick-sanchez' size={30} />
+          tabBarIcon: () => < Icon  name='rick_96058' size={30} />
         }}
       />
     </TabNavigator.Navigator>
