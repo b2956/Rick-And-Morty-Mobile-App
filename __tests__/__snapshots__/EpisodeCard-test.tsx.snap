@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Character Card Should render the Episode Card component correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignSelf": "center",
+        "backgroundColor": "#606268",
+        "borderRadius": 10,
+        "flexDirection": "column",
+        "height": 200,
+        "justifyContent": "center",
+        "marginBottom": 10,
+        "overflow": "hidden",
+        "paddingLeft": 15,
+        "paddingRight": 15,
+        "width": "95%",
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#fff",
+          "fontSize": 20,
+          "fontWeight": "700",
+          "marginBottom": 10,
+        },
+      ]
+    }
+  >
+    Pilot
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "flex-start",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "flexDirection": "column",
+            "justifyContent": "flex-start",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "rgb(158, 158, 158)",
+              "fontSize": 13,
+              "fontWeight": "400",
+            },
+          ]
+        }
+      >
+        Air Date:
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#fff",
+              "fontSize": 13,
+              "marginBottom": 10,
+            },
+          ]
+        }
+      >
+        December 2, 2013
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "flexDirection": "column",
+            "justifyContent": "flex-start",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "rgb(158, 158, 158)",
+              "fontSize": 13,
+              "fontWeight": "400",
+            },
+          ]
+        }
+      >
+        Episode:
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#fff",
+              "fontSize": 13,
+              "marginBottom": 10,
+            },
+          ]
+        }
+      >
+        S01E01
+      </Text>
+    </View>
+  </View>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "rgb(158, 158, 158)",
+          "fontSize": 13,
+          "fontWeight": "400",
+        },
+      ]
+    }
+  >
+    Characters present:
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#fff",
+          "fontSize": 13,
+          "marginBottom": 10,
+        },
+      ]
+    }
+  >
+    Rick | Morty
+  </Text>
+</View>
+`;

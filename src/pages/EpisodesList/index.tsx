@@ -35,8 +35,6 @@ const EpisodesList = () => {
     const changeInputHandler = (inputValue: string) => {
         const isSearching = inputValue === '' ? false : true;
 
-        console.log(inputValue);
-
         setFilterOptions(prevState => {
             return {
                 ...prevState,

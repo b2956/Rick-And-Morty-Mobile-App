@@ -35,8 +35,6 @@ const CharactersList = () => {
     const changeInputHandler = (inputValue: string) => {
         const isSearching = inputValue === '' ? false : true;
 
-        console.log(inputValue);
-
         setFilterOptions(prevState => {
             return {
                 ...prevState,
@@ -133,7 +131,7 @@ const CharactersList = () => {
 
         if (loading) return <Loader/>;
 
-        if(data) console.log(data.characters.result);
+        // if(data) console.log(data.characters.result);
 
         if (data) return  (
             <React.Fragment>

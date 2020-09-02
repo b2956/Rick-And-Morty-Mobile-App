@@ -44,7 +44,7 @@ const PickerWrap = styled.View`
 `;
 
 const SearchBar = ({inputValue, placeholder, options, changeInputHandler, changeResultsFilter}: ISearchBarProps) => {
-    const [pickerOption, setPickerOption] = useState(1);
+    const [pickerOption, setPickerOption] = useState(0);
 
     const changeInput = (inputValue: string) => {
         console.log(inputValue);
